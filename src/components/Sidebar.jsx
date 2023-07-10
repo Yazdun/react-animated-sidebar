@@ -2,6 +2,10 @@ import { useRef, useState } from 'react'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useClickAway } from 'react-use'
+import { AiOutlineRollback } from 'react-icons/ai'
+import { BiHomeSmile, BiUser } from 'react-icons/bi'
+import { HiOutlineChatBubbleBottomCenterText } from 'react-icons/hi2'
+import { FiSettings, FiShoppingCart } from 'react-icons/fi'
 
 export const Sidebar = () => {
   const [open, setOpen] = useState(false)
@@ -31,12 +35,34 @@ export const Sidebar = () => {
               className="fixed bottom-0 border-r-2 border-zinc-800 max-w-[14rem] left-0 bg-zinc-950 top-0 z-50 h-screen w-[100%]"
               ref={ref}
             >
-              <div
-                className="p-5 border-b-2 border-zinc-800"
-                onClick={toggleSidebar}
-              >
-                <button className="flex justify-between w-full">back</button>
+              <div className="p-5 flex justify-between items-center border-zinc-800 border-b-2">
+                <span>Sidebar!</span>
+                <button
+                  onClick={toggleSidebar}
+                  className="p-3 border-2 border-zinc-800 rounded-xl"
+                >
+                  <AiOutlineRollback />
+                </button>
               </div>
+              <ul>
+                {items.map((item, idx) => {
+                  const { title, Icon } = item
+                  return (
+                    <li key={title}>
+                      <a
+                        onClick={toggleSidebar}
+                        href="#"
+                        className="p-5 transition-all hover:bg-zinc-900 flex items-center justify-between gap-5 border-b-2 border-zinc-800"
+                      >
+                        <motion.span {...framerText}>{title}</motion.span>
+                        <motion.div {...framerIcon(idx)}>
+                          <Icon className="text-2xl" />
+                        </motion.div>
+                      </a>
+                    </li>
+                  )
+                })}
+              </ul>
             </motion.div>
           </>
         )}
@@ -44,6 +70,14 @@ export const Sidebar = () => {
     </>
   )
 }
+
+const items = [
+  { title: 'Home', Icon: BiHomeSmile },
+  { title: 'About', Icon: BiUser },
+  { title: 'Contact', Icon: HiOutlineChatBubbleBottomCenterText },
+  { title: 'Settings', Icon: FiSettings },
+  { title: 'Shop', Icon: FiShoppingCart },
+]
 
 const framerSidebarBackground = {
   initial: { opacity: 0 },
@@ -59,15 +93,23 @@ const framerSidebarPanel = {
   transition: { duration: 0.3 },
 }
 
-// const framerIcon = (delay) => {
-//   return {
-//     initial: { scale: 0 },
-//     animate: { scale: 1 },
-//     transition: {
-//       type: 'spring',
-//       stiffness: 260,
-//       damping: 20,
-//       delay: 0.4 + delay / 10,
-//     },
-//   }
-// }
+const framerText = {
+  initial: { opacity: 0, x: -20 },
+  animate: { opacity: 1, x: 0 },
+  transition: {
+    delay: 0.5,
+  },
+}
+
+const framerIcon = delay => {
+  return {
+    initial: { scale: 0 },
+    animate: { scale: 1 },
+    transition: {
+      type: 'spring',
+      stiffness: 260,
+      damping: 20,
+      delay: 0.8 + delay / 10,
+    },
+  }
+}
