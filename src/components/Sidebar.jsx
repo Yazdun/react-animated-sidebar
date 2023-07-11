@@ -10,9 +10,7 @@ import { FiSettings, FiShoppingCart } from 'react-icons/fi'
 export const Sidebar = () => {
   const [open, setOpen] = useState(false)
   const ref = useRef(null)
-
   useClickAway(ref, () => setOpen(false))
-
   const toggleSidebar = () => setOpen(prev => !prev)
 
   return (
@@ -20,6 +18,7 @@ export const Sidebar = () => {
       <button
         onClick={toggleSidebar}
         className="p-3 border-2 border-zinc-800 rounded-xl"
+        aria-label="toggle sidebar"
       >
         <GiHamburgerMenu />
       </button>
@@ -28,18 +27,21 @@ export const Sidebar = () => {
           <>
             <motion.div
               {...framerSidebarBackground}
+              aria-hidden="true"
               className="fixed bottom-0 left-0 right-0 top-0 z-40 bg-[rgba(0,0,0,0.1)] backdrop-blur-sm"
             ></motion.div>
             <motion.div
               {...framerSidebarPanel}
               className="fixed bottom-0 border-r-2 border-zinc-800 max-w-[14rem] left-0 bg-zinc-950 top-0 z-50 h-screen w-[100%]"
               ref={ref}
+              aria-label="Sidebar"
             >
               <div className="p-5 flex justify-between items-center border-zinc-800 border-b-2">
-                <span>Sidebar!</span>
+                <span>Welcome</span>
                 <button
                   onClick={toggleSidebar}
                   className="p-3 border-2 border-zinc-800 rounded-xl"
+                  aria-label="close sidebar"
                 >
                   <AiOutlineRollback />
                 </button>
@@ -54,8 +56,8 @@ export const Sidebar = () => {
                         href="#"
                         className="p-5 transition-all hover:bg-zinc-900 flex items-center justify-between gap-5 border-b-2 border-zinc-800"
                       >
-                        <motion.span {...framerText}>{title}</motion.span>
-                        <motion.div {...framerIcon(idx)}>
+                        <motion.span {...framerText(idx)}>{title}</motion.span>
+                        <motion.div {...framerIcon}>
                           <Icon className="text-2xl" />
                         </motion.div>
                       </a>
@@ -93,23 +95,23 @@ const framerSidebarPanel = {
   transition: { duration: 0.3 },
 }
 
-const framerText = {
-  initial: { opacity: 0, x: -20 },
-  animate: { opacity: 1, x: 0 },
-  transition: {
-    delay: 0.5,
-  },
-}
-
-const framerIcon = delay => {
+const framerText = delay => {
   return {
-    initial: { scale: 0 },
-    animate: { scale: 1 },
+    initial: { opacity: 0, x: -50 },
+    animate: { opacity: 1, x: 0 },
     transition: {
-      type: 'spring',
-      stiffness: 260,
-      damping: 20,
-      delay: 0.8 + delay / 10,
+      delay: 0.5 + delay / 10,
     },
   }
+}
+
+const framerIcon = {
+  initial: { scale: 0 },
+  animate: { scale: 1 },
+  transition: {
+    type: 'spring',
+    stiffness: 260,
+    damping: 20,
+    delay: 1.5,
+  },
 }
