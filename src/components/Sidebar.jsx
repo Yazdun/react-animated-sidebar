@@ -32,11 +32,11 @@ export const Sidebar = () => {
             ></motion.div>
             <motion.div
               {...framerSidebarPanel}
-              className="fixed bottom-0 border-r-2 border-zinc-800 max-w-[14rem] left-0 bg-zinc-950 top-0 z-50 h-screen w-[100%]"
+              className="fixed top-0 bottom-0 left-0 z-50 w-full h-screen max-w-xs border-r-2 border-zinc-800 bg-zinc-900"
               ref={ref}
               aria-label="Sidebar"
             >
-              <div className="p-5 flex justify-between items-center border-zinc-800 border-b-2">
+              <div className="flex items-center justify-between p-5 border-b-2 border-zinc-800">
                 <span>Welcome</span>
                 <button
                   onClick={toggleSidebar}
@@ -54,7 +54,7 @@ export const Sidebar = () => {
                       <a
                         onClick={toggleSidebar}
                         href="#"
-                        className="p-5 transition-all hover:bg-zinc-900 flex items-center justify-between gap-5 border-b-2 border-zinc-800"
+                        className="flex items-center justify-between gap-5 p-5 transition-all border-b-2 hover:bg-zinc-900 border-zinc-800"
                       >
                         <motion.span {...framerText(idx)}>{title}</motion.span>
                         <motion.div {...framerIcon}>
