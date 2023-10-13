@@ -48,12 +48,12 @@ export const Sidebar = () => {
               </div>
               <ul>
                 {items.map((item, idx) => {
-                  const { title, Icon } = item
+                  const { title, href, Icon } = item
                   return (
                     <li key={title}>
                       <a
                         onClick={toggleSidebar}
-                        href="#"
+                        href={href}
                         className="flex items-center justify-between gap-5 p-5 transition-all border-b-2 hover:bg-zinc-900 border-zinc-800"
                       >
                         <motion.span {...framerText(idx)}>{title}</motion.span>
@@ -74,11 +74,11 @@ export const Sidebar = () => {
 }
 
 const items = [
-  { title: 'Home', Icon: BiHomeSmile },
+  { title: 'Home', Icon: BiHomeSmile, href: '#' },
   { title: 'About', Icon: BiUser },
-  { title: 'Contact', Icon: HiOutlineChatBubbleBottomCenterText },
-  { title: 'Settings', Icon: FiSettings },
-  { title: 'Shop', Icon: FiShoppingCart },
+  { title: 'Contact', Icon: HiOutlineChatBubbleBottomCenterText, href: '#' },
+  { title: 'Settings', Icon: FiSettings, href: '#' },
+  { title: 'Shop', Icon: FiShoppingCart, href: '#' },
 ]
 
 const framerSidebarBackground = {
